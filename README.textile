@@ -8,7 +8,7 @@ so instead comparing the implementation provided by "gnu gpl":http://www.gnu.org
 
 so far doug's version is MUCH faster....
 
-| num entries | gpl | svdlibc |
+| num entries | svdlibc | gpl |
 | 100 | 0.3s | 1.2s |
 | 200 |	1.2s | 6s |
 | 300 | 1.5s | 15s |
