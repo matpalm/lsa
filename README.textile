@@ -7,6 +7,7 @@ starting by getting "atlas":http://math-atlas.sourceforge.net/ impl of "lapack":
 so instead comparing the implementation provided by "gnu gpl":http://www.gnu.org/software/gsl/ to Doug Rohde's "svdlibc":http://tedlab.mit.edu/~dr/svdlibc/ (based on "netlibs svcpackc":http://www.netlib.org/svdpack/)
 
 so far doug's version is MUCH faster....
+
 | num entries | gpl | svdlibc |
 | 100 | 0.3s | 1.2s |
 | 200 |	1.2s | 6s |
