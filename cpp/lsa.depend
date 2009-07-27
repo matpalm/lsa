@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1248588795 source:/home/mat/dev/cpp/lsa/main.cpp
+	<iostream>
+	<gsl/gsl_vector.h>
+	<gsl/gsl_matrix.h>
+	<gsl/gsl_permutation.h>
+	<gsl/gsl_linalg.h>
+
+1248590316 source:/home/mat/dev/lsa/cpp/main.cpp
+	<iostream>
+	<gsl/gsl_vector.h>
+	<gsl/gsl_matrix.h>
+	<gsl/gsl_permutation.h>
+	<gsl/gsl_linalg.h>
+
