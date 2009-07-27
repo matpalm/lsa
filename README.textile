@@ -2,8 +2,17 @@ random experiment with "latent semantic analysis":http://en.wikipedia.org/wiki/L
 
 of particular interest to me is the "singular value decomposition":http://en.wikipedia.org/wiki/Singular_value_decomposition algorithm it uses
 
-starting by getting "atlas":http://math-atlas.sourceforge.net/ impl of "lapack":http://www.netlib.org/lapack/
-(using "boost ublas":http://www.boost.org/doc/libs/1_39_0/libs/numeric/ublas/doc/index.htm) up and running before finding out
-atlas doesn't implement the sgesvd (svd) lapack functions (?!?!)
+starting by getting "atlas":http://math-atlas.sourceforge.net/ impl of "lapack":http://www.netlib.org/lapack/ (using "boost ublas":http://www.boost.org/doc/libs/1_39_0/libs/numeric/ublas/doc/index.htm) up and running before finding out atlas doesn't implement the sgesvd (svd) lapack functions (?!?!)
 
-so instead comparing a "gnu gpl":http://www.gnu.org/software/gsl/ vs Doug Rohde's "svdlibc":http://tedlab.mit.edu/~dr/svdlibc/ (based on "netlibs svcpackc":http://www.netlib.org/svdpack/)
+so instead comparing the implementation provided by "gnu gpl":http://www.gnu.org/software/gsl/ to Doug Rohde's "svdlibc":http://tedlab.mit.edu/~dr/svdlibc/ (based on "netlibs svcpackc":http://www.netlib.org/svdpack/)
+
+so far doug's version is MUCH faster....
+| num entries | gpl | svdlibc |
+| 100 | 0.3s | 1.2s |
+| 200 |	1.2s | 6s |
+| 300 | 1.5s | 15s |
+| 400 | 2.6s | 34s | 
+| 500	|	5s | 1m 16s |
+
+an implementation that _really_ caters for sparse matrices makes a HUGE difference!!!
+
