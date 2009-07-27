@@ -12,7 +12,7 @@ so far doug's version is MUCH faster....
 | 100 | 0.3s | 1.2s |
 | 200 |	1.2s | 6s |
 | 300 | 1.5s | 15s |
-| 400 | 2.6s | 34s | 
+| 400 | 2.6s | 34s |
 | 500	|	5s | 1m 16s |
 
 an implementation that _really_ caters for sparse matrices makes a HUGE difference!!!
