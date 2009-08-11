@@ -1,3 +1,9 @@
 SVDLIBC/*
 cpp/bin/*
 cpp/obj/*
+svdlibc.tgz
+web_content
+transpose_prj/bin/
+transpose_prj/obj/
+tf_idf_prj/bin/
+tf_idf_prj/obj/

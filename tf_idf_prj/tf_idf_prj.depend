@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1249709326 source:/home/mat/dev/svd/tf_idf_prj/main.cpp
+	<iostream>
+	"math.h"
+

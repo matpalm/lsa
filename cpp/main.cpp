@@ -5,8 +5,26 @@
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_permutation.h>
 #include <gsl/gsl_linalg.h>
+#include <fstream>
 
 using namespace std;
+
+gsl_matrix* read_matrix_from_file(string filename, int& n_rows, int& n_cols) {
+    ifstream in;
+    in.open(filename.c_str());
+
+    string line;
+    in >> line;
+
+    vector<string> strs;
+    boost::split(strs, line, boost::is_any_of(" "));
+    n_rows = atoi(strs[0].c_str());
+    n_cols = atoi(strs[1].c_str());
+    cout << "n_rows=" << n_rows << " n_cols=" << n_cols << endl;
+    in.close();
+
+    return gsl_matrix_alloc(n_rows, n_cols);
+}
 
 void dump_matrix(gsl_matrix* m, const int ni, const int nj) {
     for(int i=0;i<ni;i++) {
@@ -57,6 +75,7 @@ int read_int_from_stdin() {
 
 int main() {
 
+/*
     int* sizes_num_entries = read_ints_from_stdin(3);
     const int n_terms     = sizes_num_entries[0]; // rows
     const int n_docs      = sizes_num_entries[1]; // cols
@@ -66,39 +85,12 @@ int main() {
     cout << "n_terms (rows)=" << n_terms << endl;
     cout << "n_docs (cols)=" << n_docs << endl;
     cout << "num_entries=" << num_entries << endl;
+    */
 
-    gsl_matrix* a = gsl_matrix_alloc(n_terms, n_docs);
-
-    for(int col=0; col<n_docs; col++) {
-        int num_entries_for_column = read_int_from_stdin();
-        for(int e=0; e<num_entries_for_column; e++) {
-            int* row_value = read_ints_from_stdin(2);
-            int row = row_value[0];
-            int value = row_value[1];
-            gsl_matrix_set(a, row,col, value);
-            delete row_value;
-        }
-    }
-
-    //cout << "read in" << endl;
-    //cout << "a" << endl; dump_matrix(a, n_terms, n_docs);
-
-    gsl_matrix* v = gsl_matrix_alloc(n_docs, n_docs);
-    gsl_vector* s = gsl_vector_alloc(n_docs);
-    gsl_vector* work = gsl_vector_alloc(n_docs);
-
-    gsl_linalg_SV_decomp(a, v, s, work);
-
-    //cout << "done" << endl;
-    cout << "u" << endl; dump_matrix(a, n_terms, n_docs);
-    cout << "v" << endl; dump_matrix(v, n_docs, n_docs);
-    cout << "s" << endl; dump_vector(s, n_docs);
-
-    gsl_matrix_free(a);
-    gsl_matrix_free(v);
-    gsl_vector_free(s);
-    gsl_vector_free(work);
-
+    int n_terms, n_docs;
+    gsl_matrix* u = read_matrix_from_file("test.3-Ut", n_terms, n_docs);
+    cout << "u" << endl; dump_matrix(u, n_terms, n_docs);
+    delete u;
     return 0;
 }
 
