@@ -1,6 +1,6 @@
 SVDLIBC/*
-cpp/bin/*
-cpp/obj/*
+lsa_prj/bin/*
+lsa_prj/obj/*
 svdlibc.tgz
 web_content
 transpose_prj/bin/
