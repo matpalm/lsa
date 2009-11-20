@@ -17,3 +17,48 @@ so far doug's version is MUCH faster....
 
 an implementation that _really_ caters for sparse matrices makes a HUGE difference!!!
 
+todo:
+
+check factorization by multiplying an example out, need to refer to text for examples which included
+which extra rows are zeroed
+
+after svd need to take first sigma and recontruct rank-1/2/3 approximation. use this for doc cluster, not
+1st/2nd/3rd rows of vT. these can be plotted in ggobi
+
+take query
+fold into sub space
+pick orders
+
+need some manual examples
+- get web content
+
+lsi eg from p381
+
+visualising by angles
+
+so document similiarities is done by angles, not distances in vec space
+for 2d case can order them by angle from (1,0)
+but in 3+d case what to do? don't have distance, only angles?
+find smallest angle, combine, replace with representative vector?
+or according to manning could try the different cluster rules, closest, furthest, average etc
+
+visualising by points 
+
+cat ../$1 | ../feed_to_occurrence_matrix.rb tom
+../svd -r st -w dt -c tom.sparse tom.dense #convert from sparse to dense
+../tf_idf.rb < tom.dense > tom.dense.tf_idf
+../svd -d 2 -v 0 -o svd.tf_idf -r dt tom.dense.tf_idf
+../svd -d 2 -v 0 -o svd.raw tom.sparse
+
+gives two version of the decomposition, one from the raw data, and one from the tf_idf reduced data
+to compare documents we consider Vt, the documents remapped into concept space.
+
+cat svd.tf_idf-Vt | ../transpose_dense.rb | ../normalise.rb > svd.tf_idf-V
+cat svd.raw-Vt | ../transpose_dense.rb | ../normalise.rb > svd.raw-V
+
+gnuplot> plot 'svd.raw-V' with points 
+gnuplot> plot 'svd.tf_idf-V' with points 
+
+matrix transpose using ruby standard ruby library, 115s
+using simple diy ruby code, 29s
+using c version, 2s

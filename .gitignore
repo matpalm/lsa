@@ -2,7 +2,6 @@ SVDLIBC/*
 lsa_prj/bin/*
 lsa_prj/obj/*
 svdlibc.tgz
-web_content
 transpose_prj/bin/
 transpose_prj/obj/
 tf_idf_prj/bin/
