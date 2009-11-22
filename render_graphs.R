@@ -1,0 +1,23 @@
+png("_A2_2d-VS.png", width=400, height=400, bg = "transparent")
+dat = read.csv('_A2_2d-VS.csv',header=TRUE) 
+cols = c('green','green','blue','blue')
+plot(dat, col=cols, pch=16)
+dev.off()
+
+png("_A2_2d-US.png", width=400, height=400, bg = "transparent")
+dat = read.csv('_A2_2d-US.csv',header=TRUE)
+cols = c('green','green','red','blue','blue','blue')
+plot(dat, col=cols, pch=16)
+dev.off()
+
+png("_A3_2d-VS.png", width=400, height=400, bg = "transparent")
+dat = read.csv('_A3_2d-VS.csv',header=TRUE) 
+cols = c('green','green','blue','blue')
+plot(dat, col=cols, pch=16)
+dev.off()
+
+png("_A3_2d-US.png", width=400, height=400, bg = "transparent")
+dat = read.csv('_A3_2d-US.csv',header=TRUE)
+cols = c('green','green','red','blue','blue','blue')
+plot(dat, col=cols, pch=16)
+dev.off()
