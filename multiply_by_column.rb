@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # made for mulitplying U by S (where S is just single column representing diagonal)
-raise "./multiply_US.rb sparse_matrix_file column_vector_file" unless ARGV.length==2
+raise "./multiply.rb dense_matrix_file column_vector_file" unless ARGV.length==2
 
 lines = File.readlines ARGV[0]
 anr,anc = lines.shift.split.collect {|n| n.to_i}
@@ -23,7 +23,6 @@ result = a_rows.collect do |a_row|
 		a*b
 	end
 end
-
-puts (1..a_rows.first.size).collect { |n| "V#{n}" }.join(',')
-result.each { |row| puts row.join ',' }
+puts "#{anr} #{bnrc}"
+result.each { |row| puts row.join ' ' }
 

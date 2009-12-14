@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # convert from rss feed 
-# url|data|text
+# url|date|text
 # to a term occurence matrix (rows being terms, cols being documents)
 
 # use sparse matrix format as specified at http://tedlab.mit.edu/~dr/svdlibc/SVD_F_ST.html
@@ -28,10 +28,17 @@ end
 
 raise "feed_to_occurence_matrix.rb DIR_PREFIX <MIN_TERMS_PER_DOC>" unless ARGV.length==1 or ARGV.length==2
 DIR_PREFIX = ARGV.shift
-MIN_TERMS_PER_DOC = (ARGV.shift.to_i if ARGV) || 30
+MIN_TERMS_PER_DOC = (ARGV.shift.to_i if ARGV) || 30 # ignore docs smaller than this
+
+# if 0.15 then 
+# remove terms that appear is less than 0.15 of docs and 
+# remove terms that appear in more than 0.85 of docs
+TERM_FREQ_CUTOFF = 0.10
 
 require 'set'
 
+global_term_freq = {}
+global_term_freq.default = 0
 doc_term_freq = []
 num_non_zero_entries = 0
 term_to_docs = {}
@@ -41,20 +48,21 @@ all_terms = Set.new
 doc_id = 0
 id_to_url = File.new("#{DIR_PREFIX}/id_to_url",'w')
 STDIN.each do |line|
-	id, url, text = line.chomp.split '|'
+	url, date, text = line.chomp.split '|'
 	next unless text.split.size > MIN_TERMS_PER_DOC
 	id_to_url.puts "#{doc_id} #{url.strip}"
 
 	terms = text.gsub(/[^a-zA-Z0-9 ]/,' ').
 			split(/\s+/).
 			select { |w| w.length >1 }.
-			collect { |w| w.downcase.to_sym }	
+			collect { |w| w.downcase.to_sym }
 
 	all_terms += terms
 
 	term_freq = {}
 	term_freq.default = 0
 	terms.each do |term| 
+		global_term_freq[term] += 1
 		term_freq[term] += 1 
 		term_to_docs[term] ||= Set.new
 		term_to_docs[term] << doc_id
@@ -67,18 +75,26 @@ STDIN.each do |line|
 end
 id_to_url.close
 
-# remove entries that correspond to a term that only appears in one document
-=begin
-single_entry_terms = []
+#puts "$$$$$$$$$$$$$$$$ before any purge"
+#puts term_to_docs.to_a.collect {|ts| [ts[0],ts[1].size] }.sort {|a,b| a[1]<=>b[1]}.inspect
+#puts term_to_docs.size
+
+terms_to_remove = []
+remove_freq_lowerbound = doc_id * TERM_FREQ_CUTOFF
+remove_freq_upperbound = doc_id * (1.0 - TERM_FREQ_CUTOFF)
 term_to_docs.each do |term, docs|
-	single_entry_terms << term if docs.size==1
+	terms_to_remove << term if docs.size <= remove_freq_lowerbound || docs.size >= remove_freq_upperbound
 end
-single_entry_terms.each do |term|
+terms_to_remove.each do |term|
 	all_terms.delete term
-	doc_term_freq.each { |tf| tf.delete term } # (though will only be one to has it removed)
+	doc_term_freq.each { |tf| tf.delete term } 
+	term_to_docs.delete term
 	num_non_zero_entries -= 1
 end
-=end
+
+#puts "$$$$$$$$$$$$$$$$ AFTER purge"
+#puts term_to_docs.to_a.collect {|ts| [ts[0],ts[1].size] }.sort {|a,b| a[1]<=>b[1]}.inspect
+#puts term_to_docs.size
 
 # convert from terms to idxs
 term_to_idx = TermToIdx.new
