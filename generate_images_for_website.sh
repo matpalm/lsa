@@ -11,4 +11,5 @@ rm SVD_EG-*
 ./multiply_by_column.rb SVD_EG-V SVD_EG-S > SVD_EG-VS
 ./matrix_to_csv_for_r.rb < SVD_EG-VS > SVD_EG-VS.csv
 
+mkdir site 2>/dev/null
 R --vanilla < render_graphs.R
