@@ -1,0 +1,39 @@
+table { border-spacing: 0px;  
+	border-collapse: collapse;
+	font-size: 13px;}
+
+td { padding: 5px;
+		text-align: center; 		
+		background-color: #edfbfc;
+		border: 1px #000 solid;}
+
+td.x  { background-color: #edfbfc; }
+td.w  { background-color: #ddfbfc; }
+td.y  { background-color: #adfcec; }
+
+td.r  { background-color: #ffaaaa;	}
+td.g  { background-color: #aaffaa;	}
+td.lg { background-color: #77ff77;	}
+td.b  { background-color: #aaaaff;	}
+
+
+		body {
+  		margin: 10px 0px 0px 50px;
+		  font-family: verdana, geneva, arial, helvetica, sans-serif; 
+		  font-size: 15px; 
+		  background-color: #edfbdc; 
+		  text-decoration: none; 
+		  font-weight: normal; 
+		  line-height: normal; 		
+		}
+		
+		a          { color: #3366cc; }
+		a:link     { color: #3366cc; text-decoration: underline; }
+		a:visited  { color: #3366cc; text-decoration: underline; }
+		a:active   { color: #3366cc; text-decoration: underline; }
+		a:hover    { color: #3366cc; text-decoration: underline; }
+		
+div.left { float:left; margin-left: 10px }		
+div.right { margin-left: 10px }		
+
+

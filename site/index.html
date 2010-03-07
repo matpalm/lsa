@@ -1,0 +1,254 @@
+<html>
+ <head>
+	<title>lsa via svd</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel=StyleSheet href="style.css" type="text/css">
+ </head>
+<body>
+
+<h1>document clustering by latent semantic analysis</h1>
+
+<p>
+following on from some previous work LINK on classifying documents i wanted
+to see how well latent semantic analysis does at classifying documents. but before
+we consider a few background concepts...
+</p>
+
+<h2>document term matrix</h2>
+
+<p>
+a common way to represent a corpus is as a matrix where rows represent terms and columns represent documents.</br>
+element a<sub>i,j</sub> denoting that the ith term occured n times in the jth document.
+</p>
+
+<p>
+for example consider the, rather contrived, documents
+<pre>
+d1: a a a a a a  b b b b b b b b  c c c c c c  e e  f f 
+d2: a a a a a a a  b b b b b b  c c c c c c c c c  d
+d3: a  c c c c c c c c  d d d d d d d d  e e e e e e e e e  f f f f f f f
+d4: b  c c c c c  d d d d d d d d  e e e e e e e  f f f f f f f
+</pre>
+
+which can be represented as the 6x4 matrix below
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">6</td> <td class="y">7</td> <td class="w">1</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">8</td> <td class="y">6</td> <td class="x">0</td> <td class="w">1</td> </tr>
+<tr> <td>c</td> <td class="y">6</td> <td class="y">9</td> <td class="y">8</td> <td class="y">5</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="w">1</td> <td class="y">8</td> <td class="y">8</td> </tr>
+<tr> <td>e</td> <td class="w">2</td> <td class="x">0</td> <td class="y">9</td> <td class="y">7</td> </tr>
+<tr> <td>f</td> <td class="w">2</td> <td class="x">0</td> <td class="y">7</td> <td class="y">7</td> </tr>
+</table>
+</p>
+
+<p>
+traditionally when dealing with these matrices for information retreival we might apply some pre
+processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normalisation</a> but to start with we'll doing nothing more
+</p>
+
+<h2>singular value decomposition</h2>
+
+<p>
+the singular value decomposition is a matrix decomposition algorithm.</br>
+it decomposes a matrix A into the produce of three matrices U, S and V</br>
+each of these three matrices represents a different interpretation of the original data.
+</p>
+
+<p>
+here is a decomposition of A performed using SVDLIBC (LINK)
+</p>
+
+<div style="float:left">
+<div style="float:left">
+<center><h3>A</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>t1</td> <td class="y">6</td> <td class="y">7</td> <td class="w">1</td> <td class="x">0</td> </tr>
+<tr> <td>t2</td> <td class="y">8</td> <td class="y">6</td> <td class="x">0</td> <td class="w">1</td> </tr>
+<tr> <td>t3</td> <td class="y">6</td> <td class="y">9</td> <td class="y">8</td> <td class="y">5</td> </tr>
+<tr> <td>t4</td> <td class="x">0</td> <td class="w">1</td> <td class="y">8</td> <td class="y">8</td> </tr>
+<tr> <td>t5</td> <td class="w">2</td> <td class="x">0</td> <td class="y">9</td> <td class="y">7</td> </tr>
+<tr> <td>t6</td> <td class="w">2</td> <td class="x">0</td> <td class="y">7</td> <td class="y">7</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>=</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>U</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>t1</td> <td class="z">0.24</td> <td class="z">-0.51</td> <td class="z">0.08</td> <td class="z">0.06</td> </tr>
+<tr> <td>t2</td> <td class="z">0.25</td> <td class="z">-0.54</td> <td class="z">-0.64</td> <td class="z">-0.23</td> </tr>
+<tr> <td>t3</td> <td class="z">0.58</td> <td class="z">-0.28</td> <td class="z">0.57</td> <td class="z">0.13</td> </tr>
+<tr> <td>t4</td> <td class="z">0.42</td> <td class="z">0.37</td> <td class="z">0.16</td> <td class="z">-0.68</td> </tr>
+<tr> <td>t5</td> <td class="z">0.44</td> <td class="z">0.34</td> <td class="z">-0.24</td> <td class="z">0.66</td> </tr>
+<tr> <td>t6</td> <td class="z">0.39</td> <td class="z">0.29</td> <td class="z">-0.40</td> <td class="z">-0.09</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>x</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>S</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>f1</td> <td class="z">23.1</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f2</td> <td class="z">0</td> <td class="z">14.3</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f3</td> <td class="z">0</td> <td class="z">0</td> <td class="z">3.5</td> <td class="z">0</td> </tr>
+<tr> <td>f4</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> <td class="z">1.5</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>x</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>Vt</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>f1</td> <td class="z">0.37</td>  <td class="z">0.38</td>  <td class="z">0.65</td> <td class="z">0.53</td> </tr>
+<tr> <td>f2</td> <td class="z">-0.55</td> <td class="z">-0.63</td> <td class="z">0.37</td> <td class="z">0.38</td> </tr>
+<tr> <td>f3</td> <td class="z">-0.69</td> <td class="z">0.59</td>  <td class="z">0.27</td> <td class="z">-0.21</td> </tr>
+<tr> <td>f4</td> <td class="z">0.26</td>  <td class="z">-0.29</td> <td class="z">0.59</td> <td class="z">-0.69</td> </tr>
+</table>
+</div>
+
+</div>
+
+<div style="float:left;width=10000">
+
+<p>
+the original matrix A describes the corpus through the relationshop of terms (rows) and documents (columns)</br>
+matrices U and V introduce a new concept, the <em>feature</em>.</br>
+U describes the relationship between terms (rows) and features (columns)</br>
+Vt describes the relationshop between features (rows) and documents (columns)</br>
+<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
+is expressed in terms of the transpose of V</small>
+</p>
+
+<h3>interpretation of S</h3>
+
+<p>
+the matrix S is always a diagonal matrix with non-negative decending values, formally known as the singular values.</br>
+each of the values describes how much "variance" each feature describes</br>
+</p>
+
+<p>
+in our case we have the 4 singular values; 23.1, 14.3, 3.5, 1.5</br>
+<tt>first two are dominant and give the most variance</tt>
+</p>
+
+<h3>interpretation of U</h3>
+<p>
+the matrix US describes the relation between terms in the corpus</br>
+<img src="SVD_EG-US.png"/><img src="SVD_EG-US.V0V1.png"/>
+</p>
+
+<h3>interpretation of VS</h3>
+<p>
+the matrix VS describes the relation between documents in the corpus</br>
+<img src="SVD_EG-VS.png"/><img src="SVD_EG-VS.V0V1.png"/>
+</p>
+
+<h3>low rank approximation</h3>
+<p>
+</p>
+
+<pre>
+U=
+0.48 -0.31  
+0.85 -0.03  
+0.19 0.94 
+
+S=
+3.50 0   
+0    0.76 
+
+Vt=
+0.62  0.38  0.68
+-0.50 -0.46 0.72
+</pre>
+
+
+though this is not our primary focus it illustrates that the eigen values are orthogonal and can be used independently
+</p>
+ 
+<h2>latent semantic analysis</h2>
+<p>
+latent semantic analysis (lsa) is a way of comparing text by way of comparing their features. 
+one way to generate the features for 
+</p>
+
+what is? it's a way of 
+latent semantic analysis is a way of 
+one way to cluster documents is to 
+latent semantic analysis is oneas a way of clustering documents.
+</p>
+
+<h2>A3</h2>
+
+
+
+<p>
+there is enough variance to know have 4 dimensions of variance, though as expected the first two dominant the second two.</br>
+<table>
+<tr> <td class="x">36.342</td> </tr>
+<tr> <td class="x">24.679</td> </tr>
+<tr> <td class="x">2.644</td> </tr>
+<tr> <td class="x">1.120</td> </tr>
+</table>
+</p>
+
+<p> 
+VS matrix; docs
+<table>
+<tr><td>V1</td><td>V2</td><td>V3</td><td>V4</td></tr>
+<tr> <td class="g">15.196</td> <td class="g">-15.033</td> <td class="g">0.803</td> <td class="g">0.674</td> </tr>
+<tr> <td class="g">14.416</td> <td class="g">-13.447</td> <td class="g">-0.899</td> <td class="g">-0.734</td> </tr>
+<tr> <td class="b">20.770</td> <td class="b">9.828</td> <td class="b">1.700</td> <td class="b">-0.357</td> </tr>
+<tr> <td class="b">21.227</td> <td class="b">10.278</td> <td class="b">-1.627</td> <td class="b">0.365</td> </tr>
+</table>
+<table>
+<tr> <td class="g">12</td> <td class="g">11</td> <td class="b">0</td> <td class="b">2</td> </tr>
+<tr> <td class="g">13</td> <td class="g">12</td> <td class="b">1</td> <td class="b">0</td> </tr>
+<tr> <td class="g">12</td> <td class="g">11</td> <td class="b">12</td> <td class="b">11</td> </tr>
+<tr> <td class="g">0</td> <td class="g">2</td> <td class="b">11</td> <td class="b">13</td> </tr>
+<tr> <td class="g">0</td> <td class="g">0</td> <td class="b">11</td> <td class="b">12</td> </tr>
+<tr> <td class="g">1</td> <td class="g">0</td> <td class="b">12</td> <td class="b">11</td> </tr>
+</table>
+<img src="_A3_2d-VS.png"/>
+</p>
+
+<p> 
+US matrix; terms
+<table>
+<tr><td>V1</td><td>V2</td><td>V3</td><td>V4</td></tr>
+<tr> <td class="g">10.549</td> <td class="g">-12.471</td> <td class="g">-1.328</td> <td class="g">0.657</td> </tr>
+<tr> <td class="g">10.768</td> <td class="g">-14.059</td> <td class="g">0.510</td> <td class="g">-0.368</td> </tr>
+<tr> <td class="r">22.664</td> <td class="r">-3.944</td> <td class="r">0.848</td> <td class="r">-0.227</td> </tr>
+<tr> <td class="b">14.673</td> <td class="b">8.705</td> <td class="b">-1.610</td> <td class="b">-0.572</td> </tr>
+<tr> <td class="b">13.296</td> <td class="b">9.378</td> <td class="b">-0.314</td> <td class="b">0.413</td> </tr>
+<tr> <td class="b">13.701</td> <td class="b">8.751</td> <td class="b">1.248</td> <td class="b">0.370</td> </tr>
+</table>
+<table>
+<tr> <td class="g">12</td> <td class="g">11</td> <td class="g">0</td> <td class="g">2</td> </tr>
+<tr> <td class="g">13</td> <td class="g">12</td> <td class="g">1</td> <td class="g">0</td> </tr>
+<tr> <td class="r">12</td> <td class="r">11</td> <td class="r">12</td> <td class="r">11</td> </tr>
+<tr> <td class="b">0</td> <td class="b">2</td> <td class="b">11</td> <td class="b">13</td> </tr>
+<tr> <td class="b">0</td> <td class="b">0</td> <td class="b">11</td> <td class="b">12</td> </tr>
+<tr> <td class="b">1</td> <td class="b">0</td> <td class="b">12</td> <td class="b">11</td> </tr>
+</table>
+
+</p>
+</div>
+
+</body>
+</html>
+
