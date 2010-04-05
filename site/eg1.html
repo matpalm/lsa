@@ -1,0 +1,222 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<div class="one_column" >
+
+<h1>example 1: two clear features</h1>
+
+<p>
+here's another trivial example to make sure we know exactly what's going on
+</p>
+
+<p>
+consider the set of, extremely contrived, documents
+<pre>
+d1: c a a b c b c
+d2: a b c a b c c
+d3: d e f f d
+d4: f d e d f
+</pre>
+</p>
+
+<p>
+which is represented as the 6x4 document term matrix.
+</p>
+
+<p>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>c</td> <td class="y">3</td> <td class="y">3</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+<tr> <td>e</td> <td class="x">0</td> <td class="x">0</td> <td class="y">1</td> <td class="y">1</td> </tr>
+<tr> <td>f</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+</table>
+</p>
+
+<p>
+<small>note: traditionally when dealing with these matrices for information retreival we might apply some pre
+processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normalisation</a>, but for our examples we won't bother.</small>
+</p>
+
+<p>
+once more we can see two clear partitions of the documents; d1 with d2 and d3 with d4
+</p>
+
+<h2>singular value decomposition</h2>
+
+<p>
+the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition</a> is a matrix decomposition algorithm (ie it breaks a matrix up
+into a series of products of matrices)</br>
+in particular the SVD decomposes a matrix A into the produce of three specially formed matrices (mysteriously named) U, S and V</br>
+each of these three matrices represents a different interpretation of the original data.
+</p>
+
+<p>
+here is a decomposition of A performed using <a href="http://tedlab.mit.edu/~dr/SVDLIBC/">SVDLIBC</a>
+</p>
+
+</div>
+
+<div class="one_column">
+<div class="sub_column">
+<center><h3>A</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>c</td> <td class="y">3</td> <td class="y">3</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+<tr> <td>e</td> <td class="x">0</td> <td class="x">0</td> <td class="y">1</td> <td class="y">1</td> </tr>
+<tr> <td>f</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>=</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>U</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>a</td> <td class="z">0.48</td> <td class="z">0</td>     <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>b</td> <td class="z">0.48</td> <td class="z">0</td>     <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>c</td> <td class="z">0.72</td> <td class="z">0</td>     <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>d</td> <td class="z">0</td>    <td class="z">-0.66</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>e</td> <td class="z">0</td>    <td class="z">-0.33</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f</td> <td class="z">0</td>    <td class="z">-0.66</td> <td class="z">0</td> <td class="z">0</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>x</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>S</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>f1</td> <td class="z">5.83</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f2</td> <td class="z">0</td> <td class="z">4.24</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f3</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f4</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>x</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>Vt</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>f1</td> <td class="z">0.70</td>  <td class="z">0.38</td>  <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f2</td> <td class="z">0</td> <td class="z">0</td> <td class="z">-0.70</td> <td class="z">-0.70</td> </tr>
+<tr> <td>f3</td> <td class="z">0</td> <td class="z">0</td>  <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f4</td> <td class="z">0</td>  <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+</table>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<p>
+S describes the relative strengths of the features</br>
+U describes the relationship between terms (rows) and features (columns)</br>
+Vt describes the relationshop between features (rows) and documents (columns)</br>
+<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
+is expressed in terms of the transpose of V</small>
+</p>
+
+<h3>interpretation of S</h3>
+
+<p>
+the matrix S is always a diagonal matrix with non-negative decending values, formally known as the singular values.</br>
+non zero values represent a feature; in our case we have two. (there can't be more features than there are documents)</br>
+the magnitude of the values describes how much "variance" each feature describes in the data</br>
+for this example we can see that each feature is roughly the same strength; there are roughly the same number of documents for each feature</br>
+</p>
+
+<a name="vs"></a><h3>interpretation of VS</h3>
+
+<p>
+the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
+plotting f1 vs f2 we can see the expected seperation of doc1 and doc2 from doc3 and doc4
+</p>
+
+</div>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>d1</td> <td class="b">4.123</td> <td class="b">0.000</td> <td class="b">0.000</td> <td class="b">0.000</td> </tr>
+<tr> <td>d2</td> <td class="b">4.123</td> <td class="b">0.000</td> <td class="b">0.000</td> <td class="b">0.000</td> </tr>
+<tr> <td>d3</td> <td class="g">0.000</td> <td class="g">-3.000</td> <td class="g">0.000</td> <td class="g">0.000</td> </tr>
+<tr> <td>d4</td> <td class="g">0.000</td> <td class="g">-3.000</td> <td class="g">0.000</td> <td class="g">0.000</td> </tr>
+</table>
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-VS.V0V1.1.png"/>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<a name="us"></a><h3>interpretation of US</h3>
+
+<p>
+the matrix product US describes the relation between terms (US's rows) and the features (US's columns)</br>
+again we see what we expected; terms <em>a</em>, <em>b</em> &amp; <em>c</em> (only present in the first two documents) are aligned with feature 1</br>
+whereas terms <em>d</em>, <em>e</em> &amp; <em></em> (only present in the second two documents) are aligned with feature 2
+</p>
+
+<div>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+<table>
+<tr> <td></td> <td>f1</td><td>f2</td><td>f3</td><td>f4</td></tr>
+<tr> <td>a</td> <td class="g">2.82</td> <td class="g">0</td> <td class="g">0</td> <td class="g">0</td> </tr>
+<tr> <td>b</td> <td class="g">2.82</td> <td class="g">0</td> <td class="g">0</td> <td class="g">0</td> </tr>
+<tr> <td>c</td> <td class="g">4.24</td> <td class="g">0</td> <td class="g">0</td> <td class="g">0</td> </tr>
+<tr> <td>d</td> <td class="b">0</td> <td class="b">-2.82</td> <td class="b">0</td> <td class="b">0</td> </tr>
+<tr> <td>e</td> <td class="b">0</td> <td class="b">-1.41</td> <td class="b">0</td> <td class="b">0</td> </tr>
+<tr> <td>f</td> <td class="b">0</td> <td class="b">-2.82</td> <td class="b">0</td> <td class="b">0</td> </tr>
+</table>
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-US.V0V1.1.png"/>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<p>
+let's now look at <a href="eg2.html">slighty more complex example</a>
+</p>
+
+</div>
+
+</body>
+</html>
+

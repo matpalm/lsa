@@ -1,0 +1,85 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<h1>latent semantic analysis via the singular value decomposition</h1>
+
+<p>
+following on from some <a href="http://matpalm.com/rss.feed/">previous work</a> on classifying documents i wanted
+to see how well <a href="http://en.wikipedia.org/wiki/Latent_semantic_analysis">latent semantic analysis (lsa)</a> does at classifying documents.
+</p>
+
+<h2>wha?</h2>
+
+<p>
+usually when comparing documents we do so using the terms contained in the documents.</br>
+lsa gives a way of comparing documents at a higher level than the terms by introducting a concept called the <em>feature</em>.</br>
+</p>
+
+<p>
+rather than comparing documents on their terms we can compare based on how strongly they are assoicated with these features.</br>
+the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition (svd)</a> is a way of extracting features from documents based on the terms they contain.
+</p>
+
+<h2>an example</h2>
+
+<p>
+lets go through a high level example to help build the initution.
+</p>
+
+<p>
+a common way to describe a corpus is using a term-occurance matrix where rows represent terms and columns represent documents.</br>
+element a<sub>i,j</sub>=n denotes that the i<sup>th</sup> term occured n times in the j<sup>th</sup> document.
+</p>
+
+<p>
+consider the, extremely contrived, documents...
+<pre>
+d1: modem the steering linux. modem, linux the modem. steering the modem. linux!
+d2: linux; the linux. the linux modem linux. the modem, clutch the modem. petrol.
+d3: petrol! clutch the steering, steering, linux. the steering clutch petrol. clutch the petrol; the clutch.
+d4: the the the. clutch clutch clutch! steering petrol; steering petrol petrol; steering petrol!!!!
+</pre>
+
+which is represented as the 6x4 document term matrix (colour introduced just to help see patterns)
+</p>
+
+<p>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>linux</td> <td class="y">3</td> <td class="y">4</td> <td class="w">1</td> <td class="x">0</td> </tr>
+<tr> <td>modem</td> <td class="y">4</td> <td class="y">3</td> <td class="x">0</td> <td class="w">1</td> </tr>
+<tr> <td>the</td> <td class="y">3</td> <td class="y">4</td> <td class="y">4</td> <td class="y">3</td> </tr>
+<tr> <td>clutch</td> <td class="x">0</td> <td class="w">1</td> <td class="y">4</td> <td class="y">3</td> </tr>
+<tr> <td>steering</td> <td class="w">2</td> <td class="x">0</td> <td class="y">3</td> <td class="y">3</td> </tr>
+<tr> <td>petrol</td> <td class="w">0</td> <td class="x">1</td> <td class="y">3</td> <td class="y">4</td> </tr>
+</table>
+</p>
+
+<p>
+straight away we can see that, based on what words the documents contain, that doc1 and doc2 are alike and doc3 and doc4 are alike
+</p>
+
+<p>
+the terms <em>linux</em> and <em>modem</em> are used a lot in the first two docments and one can imagine that they are representive of a concept; we could call it <em>computers</em></br>
+the terms <em>clutch</em>,  <em>steering</em> and <em>petrol</em> are used a lot in the last three documents, perhaps they are representive of a concept; we could call it <em>automotive</em></br>
+the term <em>the</em> is an interesting one; it used across all the documents and we can see that this is not really related to either topic but is more an english construct</br>
+traditionally when dealing with these matrices for information retreival we might apply some pre
+processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normalisation</a>, but to start with we'll doing nothing more
+</p>
+
+<p>
+lsa will help up extract these features, <em>computers</em> and <em>automotive</em>, but alas won't give us nice names for them :)
+</p>
+
+<p>
+next let's look at <a href="eg1.html">an example of svd</a>
+</p>
+
+</body>
+</html>
+

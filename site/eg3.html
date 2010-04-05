@@ -1,0 +1,196 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<div style="one_column">
+
+<h1>example 3: two less clear features (revisited)</h1>
+
+<p>
+let's move onto an example, similiar to the last, but with some more 'noise'
+</p>
+
+<p>
+again let's work with the contrived corpus
+<pre>
+d1: a a a a a a  b b b b b b b b  c c c c c c  e e  f f 
+d2: a a a a a a a  b b b b b b  c c c c c c c c c  d
+d3: a  c c c c c c c c  d d d d d d d d  e e e e e e e e e  f f f f f f f
+d4: b  c c c c c  d d d d d d d d  e e e e e e e  f f f f f f f
+</pre>
+
+which is represented as the 6x4 document term matrix
+</p>
+
+<p>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">6</td> <td class="y">7</td> <td class="w">1</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">8</td> <td class="y">6</td> <td class="x">0</td> <td class="w">1</td> </tr>
+<tr> <td>c</td> <td class="y">6</td> <td class="y">9</td> <td class="y">8</td> <td class="y">5</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="w">1</td> <td class="y">8</td> <td class="y">8</td> </tr>
+<tr> <td>e</td> <td class="w">2</td> <td class="x">0</td> <td class="y">9</td> <td class="y">7</td> </tr>
+<tr> <td>f</td> <td class="w">2</td> <td class="x">0</td> <td class="y">7</td> <td class="y">7</td> </tr>
+</table>
+</p>
+
+<h2>singular value decomposition</h2>
+
+<p>
+here is a decomposition of A performed again using <a href="http://tedlab.mit.edu/~dr/SVDLIBC/">SVDLIBC</a>
+</p>
+
+</div>
+
+<div style="float:left">
+<div style="float:left">
+<center><h3>A</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">6</td> <td class="y">7</td> <td class="w">1</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">8</td> <td class="y">6</td> <td class="x">0</td> <td class="w">1</td> </tr>
+<tr> <td>c</td> <td class="y">6</td> <td class="y">9</td> <td class="y">8</td> <td class="y">5</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="w">1</td> <td class="y">8</td> <td class="y">8</td> </tr>
+<tr> <td>e</td> <td class="w">2</td> <td class="x">0</td> <td class="y">9</td> <td class="y">7</td> </tr>
+<tr> <td>f</td> <td class="w">2</td> <td class="x">0</td> <td class="y">7</td> <td class="y">7</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>=</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>U</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>a</td> <td class="z">0.24</td> <td class="z">-0.51</td> <td class="z">0.08</td> <td class="z">0.06</td> </tr>
+<tr> <td>b</td> <td class="z">0.25</td> <td class="z">-0.54</td> <td class="z">-0.64</td> <td class="z">-0.23</td> </tr>
+<tr> <td>c</td> <td class="z">0.58</td> <td class="z">-0.28</td> <td class="z">0.57</td> <td class="z">0.13</td> </tr>
+<tr> <td>d</td> <td class="z">0.42</td> <td class="z">0.37</td> <td class="z">0.16</td> <td class="z">-0.68</td> </tr>
+<tr> <td>e</td> <td class="z">0.44</td> <td class="z">0.34</td> <td class="z">-0.24</td> <td class="z">0.66</td> </tr>
+<tr> <td>f</td> <td class="z">0.39</td> <td class="z">0.29</td> <td class="z">-0.40</td> <td class="z">-0.09</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>x</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>S</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>f1</td> <td class="z">23.1</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f2</td> <td class="z">0</td> <td class="z">14.3</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f3</td> <td class="z">0</td> <td class="z">0</td> <td class="z">3.5</td> <td class="z">0</td> </tr>
+<tr> <td>f4</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> <td class="z">1.5</td> </tr>
+</table>
+</div>
+
+<div style="float:left">
+<center><h3>x</h3></center>
+</div>
+
+<div style="float:left">
+<center><h3>Vt</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>f1</td> <td class="z">0.37</td>  <td class="z">0.38</td>  <td class="z">0.65</td> <td class="z">0.53</td> </tr>
+<tr> <td>f2</td> <td class="z">-0.55</td> <td class="z">-0.63</td> <td class="z">0.37</td> <td class="z">0.38</td> </tr>
+<tr> <td>f3</td> <td class="z">-0.69</td> <td class="z">0.59</td>  <td class="z">0.27</td> <td class="z">-0.21</td> </tr>
+<tr> <td>f4</td> <td class="z">0.26</td>  <td class="z">-0.29</td> <td class="z">0.59</td> <td class="z">-0.69</td> </tr>
+</table>
+</div>
+
+</div>
+
+<div style="float:left;width=10000">
+
+<p>
+recall:</br>
+S describes the relative strengths of the features</br>
+U describes the relationship between terms (rows) and features (columns)</br>
+Vt describes the relationshop between features (rows) and documents (columns)</br>
+<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
+is expressed in terms of the transpose of V</small>
+</p>
+
+<h3>interpretation of S</h3>
+
+<p>
+similiarly to our <a href="eg2.html#s">last example</a> we've got two dominant features but the additional non zero term frequencies have meant we've got variance for all possible 4 features.</br>
+(this is representive of the general non contrived case where if we were dealing with a large number of documents we'd only be interested in the first dominant features)</br>
+like last time since the first two values are much higher than the second two we can derive that there are two main dominant features in the corpus.
+</p>
+
+<h3>interpretation of VS</h3>
+<p>
+the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
+</p>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>d1</td> <td class="g">8.624</td> <td class="g">-7.973</td> <td class="g">-2.447</td> <td class="g">-0.259</td> </tr>
+<tr> <td>d2</td> <td class="g">8.928</td> <td class="g">-9.081</td> <td class="g">2.177</td> <td class="g">0.283</td> </tr>
+<tr> <td>d3</td> <td class="b">15.116</td> <td class="b">5.402</td> <td class="b">0.627</td> <td class="b">-0.956</td> </tr>
+<tr> <td>d4</td> <td class="b">13.044</td> <td class="b">5.227</td> <td class="b">-0.599</td> <td class="b">1.086</td> </tr>
+</table>
+
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-VS.3.png"/>
+
+</div>
+
+<div class="one_column">
+
+<h3>interpretation of US</h3>
+
+<p>
+the matrix product US describes the relation between terms (US's rows) and the features (US's columns)</br>
+there is a bit more jitter in the points but similiar <a href="eg2.html#us">analysis as last time</a> holds
+</p>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>a</td> <td class="g">5.502</td> <td class="g">-7.449</td> <td class="g">0.349</td> <td class="g">-0.352</td> </tr>
+<tr> <td>b</td> <td class="g">5.768</td> <td class="g">-7.943</td> <td class="g">-2.100</td> <td class="g">0.477</td> </tr>
+<tr> <td>c</td> <td class="r">14.091</td> <td class="r">-3.864</td> <td class="r">1.869</td> <td class="r">-0.095</td> </tr>
+<tr> <td>d</td> <td class="b">9.962</td> <td class="b">5.337</td> <td class="b">0.709</td> <td class="b">0.880</td> </tr>
+<tr> <td>e</td> <td class="b">10.404</td> <td class="b">4.867</td> <td class="b">-1.016</td> <td class="b">-1.019</td> </tr>
+<tr> <td>f</td> <td class="b">9.118</td> <td class="b">4.107</td> <td class="b">-1.386</td> <td class="b">0.259</td> </tr>
+</table>
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-US.3.png"/>
+</div>
+
+</div>
+
+<p>
+ok then, enough of this contrived stuff, let's have a look at <a href="real.html">an example with real data</a>
+</p>
+
+</div>
+
+</body>
+</html>
+

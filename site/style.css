@@ -36,4 +36,7 @@ td.b  { background-color: #aaaaff;	}
 div.left { float:left; margin-left: 10px }		
 div.right { margin-left: 10px }		
 
+div.one_column { float:left; width:100% }
+div.sub_column { float:left; }
+
 

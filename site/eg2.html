@@ -1,0 +1,220 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<div class="one_column" >
+
+<h1>example 2: two less clear features</h1>
+
+<p>
+here's a slightly more complex example to work with
+</p>
+
+<p>
+consider the, again, extremely contrived, documents
+<pre>
+d1: c a a b c b c
+d2: a b c a b c c
+d3: d e c f c f d c
+d4: c c f d e d f
+</pre>
+</p>
+
+<p>
+which are represented as the 6x4 document term matrix.
+</p>
+
+<p>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>a</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>b</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>c</td> <td class="y">3</td> <td class="y">2</td> <td class="y">3</td> <td class="y">2</td> </tr>
+<tr> <td>d</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+<tr> <td>e</td> <td class="x">0</td> <td class="x">0</td> <td class="y">1</td> <td class="y">1</td> </tr>
+<tr> <td>f</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+</table>
+</p>
+
+<p>
+once more we can see a partitioning of the documents; d1 with d2 and d3 with d4</br>
+but this time though it's not as clear cut since <em>c</em> is present in d1 and d2 as much as it is in d3 and d4.</br>
+</p>
+
+<h2>singular value decomposition</h2>
+
+<p>
+here is a decomposition of A performed using <a href="http://tedlab.mit.edu/~dr/SVDLIBC/">SVDLIBC</a>
+</p>
+
+</div>
+
+<div class="one_column">
+<div class="sub_column">
+<center><h3>A</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>t1</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>t2</td> <td class="y">2</td> <td class="y">2</td> <td class="x">0</td> <td class="x">0</td> </tr>
+<tr> <td>t3</td> <td class="y">3</td> <td class="y">2</td> <td class="y">3</td> <td class="y">2</td> </tr>
+<tr> <td>t4</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+<tr> <td>t5</td> <td class="x">0</td> <td class="x">0</td> <td class="y">1</td> <td class="y">1</td> </tr>
+<tr> <td>t6</td> <td class="x">0</td> <td class="x">0</td> <td class="y">2</td> <td class="y">2</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>=</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>U</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>t1</td> <td class="x">0.292</td> <td class="x">-0.503</td> <td class="x">0.402</td> <td class="x">0.000</td> </tr>
+<tr> <td>t2</td> <td class="x">0.292</td> <td class="x">-0.503</td> <td class="x">0.402</td> <td class="x">0.000</td> </tr>
+<tr> <td>t3</td> <td class="x">0.778</td> <td class="x">-0.048</td> <td class="x">-0.626</td> <td class="x">0.000</td> </tr>
+<tr> <td>t4</td> <td class="x">0.316</td> <td class="x">0.467</td> <td class="x">0.356</td> <td class="x">0.000</td> </tr>
+<tr> <td>t5</td> <td class="x">0.158</td> <td class="x">0.233</td> <td class="x">0.178</td> <td class="x">0.000</td> </tr>
+<tr> <td>t6</td> <td class="x">0.316</td> <td class="x">0.467</td> <td class="x">0.356</td> <td class="x">0.000</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>x</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>S</h3></center>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>f1</td> <td class="z">6.52</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f2</td> <td class="z">0</td> <td class="z">4.11</td> <td class="z">0</td> <td class="z">0</td> </tr>
+<tr> <td>f3</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0.63</td> <td class="z">0</td> </tr>
+<tr> <td>f4</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> <td class="z">0</td> </tr>
+</table>
+</div>
+
+<div class="sub_column">
+<center><h3>x</h3></center>
+</div>
+
+<div class="sub_column">
+<center><h3>Vt</h3></center>
+<table>
+<tr> <td></td> <td>d1</td> <td>d2</td> <td>d3</td> <td>d4</td> </tr>
+<tr> <td>f1</td> <td class="x">0.536</td> <td class="x">0.417</td> <td class="x">0.575</td> <td class="x">0.456</td> </tr>
+<tr> <td>f2</td> <td class="x">-0.524</td> <td class="x">-0.513</td> <td class="x">0.475</td> <td class="x">0.487</td> </tr>
+<tr> <td>f3</td> <td class="x">-0.433</td> <td class="x">0.560</td> <td class="x">-0.440</td> <td class="x">0.553</td> </tr>
+<tr> <td>f4</td> <td class="x">0.398</td> <td class="x">16.962</td> <td class="x">42.639</td> <td class="x">0.000</td> </tr>
+</table>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<p>
+recall:</br>
+S describes the relative strengths of the features</br>
+U describes the relationship between terms (rows) and features (columns)</br>
+Vt describes the relationshop between features (rows) and documents (columns)</br>
+<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
+is expressed in terms of the transpose of V</small>
+</p>
+
+<a name="s"/></a><h3>interpretation of S</h3>
+
+<p>
+this time we have 3 singular values; 2 dominant ones (f1 and f2) and 1 lesser one (f3)</br>
+so again the variance of this data is primarily described by 2 features.
+</p>
+
+<h3>interpretation of VS</h3>
+
+<p>
+the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
+this time it's not as straight forward as our <a href="eg1.html#vs">the last example</a>.
+</p>
+
+<p>
+this time the dominant feature f1 describes not a type of document but the use of the common term <em>c</em></br>
+it's f2 that gives a clear seperation of d1 and d2 from d3 and d4</br>
+the set of scatterplots below seems to suggest in this case that f2 alone is the best distinguisher of the two types of documents.
+</div>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>d1</td> <td class="g">3.502</td> <td class="g">-2.159</td> <td class="g">-0.273</td> <td class="g">0.000</td> </tr>
+<tr> <td>d2</td> <td class="g">2.724</td> <td class="g">-2.111</td> <td class="g">0.353</td> <td class="g">0.000</td> </tr>
+<tr> <td>d3</td> <td class="b">3.755</td> <td class="b">1.956</td> <td class="b">-0.278</td> <td class="b">0.000</td> </tr>
+<tr> <td>d4</td> <td class="b">2.977</td> <td class="b">2.005</td> <td class="b">0.349</td> <td class="b">0.000</td> </tr>
+</table>
+
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-VS.2.png"/>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<a name="us"></a><h3>interpretation of US</h3>
+
+<p>
+the matrix product US describes the relation between terms (US's rows) and the features (US's columns)</br>
+as above we see that the strongest feature f1 is primarily related to the term <em>c</em></br>
+f2 gives a reasonable seperation for the 3 types of terms in the corpus;
+<ol>
+<li>those that are strongest in d1 and d2 (green),</li>
+<li>those that are shared (red)</li>
+<li>those that are strongest in d3 and d4 (blue)</li>
+</ol>
+
+</p>
+
+<div class="one_column">
+
+<div class="sub_column">
+<p>
+<table>
+<tr> <td></td> <td>f1</td> <td>f2</td> <td>f3</td> <td>f4</td> </tr>
+<tr> <td>a</td> <td class="g">1.907</td> <td class="g">-2.074</td> <td class="g">0.253</td> <td class="g">0.000</td> </tr>
+<tr> <td>b</td> <td class="g">1.907</td> <td class="g">-2.074</td> <td class="g">0.253</td> <td class="g">0.000</td> </tr>
+<tr> <td>c</td> <td class="r">5.080</td> <td class="r">-0.200</td> <td class="r">-0.395</td> <td class="r">0.000</td> </tr>
+<tr> <td>d</td> <td class="b">2.062</td> <td class="b">1.923</td> <td class="b">0.225</td> <td class="b">0.000</td> </tr>
+<tr> <td>e</td> <td class="b">1.031</td> <td class="b">0.962</td> <td class="b">0.112</td> <td class="b">0.000</td> </tr>
+<tr> <td>f</td> <td class="b">2.062</td> <td class="b">1.923</td> <td class="b">0.225</td> <td class="b">0.000</td> </tr>
+</table>
+</p>
+</div>
+
+<div class="sub_column">
+<img src="SVD_EG-US.2.png"/>
+</div>
+
+</div>
+
+<div class="one_column">
+
+<p>
+let's move onto an <a href="eg3.html">even more complex example</a>
+</p>
+
+</div>
+
+</body>
+</html>
+
