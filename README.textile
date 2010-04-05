@@ -1,3 +1,7 @@
+WRITEUP COMING SOON TO MATPALM.COM
+
+in the meantime, here are some random notes....
+
 random experiment with "latent semantic analysis":http://en.wikipedia.org/wiki/Latent_semantic_analysis
 
 of particular interest to me is the "singular value decomposition":http://en.wikipedia.org/wiki/Singular_value_decomposition algorithm it uses
