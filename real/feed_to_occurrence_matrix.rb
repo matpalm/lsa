@@ -26,14 +26,19 @@ class TermToIdx
   end
 end
 
-raise "feed_to_occurence_matrix.rb DIR_PREFIX <MIN_TERMS_PER_DOC>" unless ARGV.length==1 or ARGV.length==2
+raise "cat rss_feeds | feed_to_occurence_matrix.rb DIR_PREFIX <MIN_TERMS_PER_DOC dft 30> <TERM_FREQ_CUTOFF dft 0.10>" unless ARGV.length>=1 and ARGV.length<=3
+
+# directory to store artifacts
 DIR_PREFIX = ARGV.shift
-MIN_TERMS_PER_DOC = (ARGV.shift.to_i if ARGV) || 30 # ignore docs smaller than this
+`mkdir #{DIR_PREFIX}`
+
+# ignore docs shorter than this number of terms
+MIN_TERMS_PER_DOC = (ARGV.shift.to_i if ARGV) || 30
 
 # if 0.15 then 
 # remove terms that appear is less than 0.15 of docs and 
 # remove terms that appear in more than 0.85 of docs
-TERM_FREQ_CUTOFF = 0.10
+TERM_FREQ_CUTOFF = (ARGV.shift.to_f if ARGV) || 0.10
 
 require 'set'
 

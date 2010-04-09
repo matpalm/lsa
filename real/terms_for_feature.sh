@@ -1,0 +1,1 @@
+sort -k$1 -n terms_with_features | tail -30 | tac | cut -f1,$1 -d\ 
