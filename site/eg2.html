@@ -123,22 +123,21 @@ recall:</br>
 S describes the relative strengths of the features</br>
 U describes the relationship between terms (rows) and features (columns)</br>
 Vt describes the relationshop between features (rows) and documents (columns)</br>
-<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
-is expressed in terms of the transpose of V</small>
+<small>even though the decomposition is expressed in terms of V transpose we'll usually talk about V so that the features are the columns in both U and V</small>
 </p>
 
 <a name="s"/></a><h3>interpretation of S</h3>
 
 <p>
 this time we have 3 singular values; 2 dominant ones (f1 and f2) and 1 lesser one (f3)</br>
-so again the variance of this data is primarily described by 2 features.
+so again the variance of this data is primarily described by 2 features
 </p>
 
 <h3>interpretation of VS</h3>
 
 <p>
 the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
-this time it's not as straight forward as our <a href="eg1.html#vs">the last example</a>.
+but it's not as straight forward as our <a href="eg1.html#vs">the last example</a>.
 </p>
 
 <p>
@@ -208,6 +207,15 @@ f2 gives a reasonable seperation for the 3 types of terms in the corpus;
 </div>
 
 <div class="one_column">
+
+<p>
+where as the <a href="eg1.html">first</a> example had a clear cut 1 feature = 1 type of document situation, it's a bit more complex
+this time</br>
+the first feature instead describes the use of a very common term.</br>
+apparently it's quite common that the highest features dictate common language semantics, and you have to use other later
+features to categorisee documents.</br>
+we'll see more examples of this when we move onto using some real data
+</p>
 
 <p>
 let's move onto an <a href="eg3.html">even more complex example</a>

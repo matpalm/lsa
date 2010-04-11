@@ -15,7 +15,7 @@ here's another trivial example to make sure we know exactly what's going on
 </p>
 
 <p>
-consider the set of, extremely contrived, documents
+consider the set of, again, extremely contrived, documents
 <pre>
 d1: c a a b c b c
 d2: a b c a b c c
@@ -46,14 +46,17 @@ processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normali
 </p>
 
 <p>
-once more we can see two clear partitions of the documents; d1 with d2 and d3 with d4
+once more we can see two clear clusterings of the documents; d1 with d2 and d3 with d4
 </p>
 
 <h2>singular value decomposition</h2>
 
 <p>
 the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition</a> is a matrix decomposition algorithm (ie it breaks a matrix up
-into a series of products of matrices)</br>
+into a series of products of matrices)
+</p>
+
+<p>
 in particular the SVD decomposes a matrix A into the produce of three specially formed matrices (mysteriously named) U, S and V</br>
 each of these three matrices represents a different interpretation of the original data.
 </p>
@@ -133,15 +136,14 @@ here is a decomposition of A performed using <a href="http://tedlab.mit.edu/~dr/
 S describes the relative strengths of the features</br>
 U describes the relationship between terms (rows) and features (columns)</br>
 Vt describes the relationshop between features (rows) and documents (columns)</br>
-<small>usually though we discuss V, where the documents are rows and features are columns, and the decomposition
-is expressed in terms of the transpose of V</small>
+<small>even though the decomposition is expressed in terms of V transpose we'll usually talk about V so that the features are the columns in both U and V</small>
 </p>
 
 <h3>interpretation of S</h3>
 
 <p>
-the matrix S is always a diagonal matrix with non-negative decending values, formally known as the singular values.</br>
-non zero values represent a feature; in our case we have two. (there can't be more features than there are documents)</br>
+the matrix S is always a diagonal matrix with non-negative decending values, formally known as the singular values</br>
+non zero values represent a feature and in this example we have two. (there can't be more features than there are documents)</br>
 the magnitude of the values describes how much "variance" each feature describes in the data</br>
 for this example we can see that each feature is roughly the same strength; there are roughly the same number of documents for each feature</br>
 </p>

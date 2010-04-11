@@ -4,7 +4,7 @@
 # url|date|text
 # to a term occurence matrix (rows being terms, cols being documents)
 
-# use sparse matrix format as specified at http://tedlab.mit.edu/~dr/svdlibc/SVD_F_ST.html
+# use sparse matrix format as specified at http://tedlab.mit.edu/~dr/SVDLIBC/SVD_F_ST.html
 
 class TermToIdx 
   def initialize
@@ -55,6 +55,7 @@ id_to_url = File.new("#{DIR_PREFIX}/id_to_url",'w')
 STDIN.each do |line|
   url, date, text = line.chomp.split '|'
   next unless text.split.size > MIN_TERMS_PER_DOC
+
   id_to_url.puts "#{doc_id} #{url.strip}"
   
   terms = text.gsub(/[^a-zA-Z0-9 ]/,' ').
@@ -84,6 +85,8 @@ id_to_url.close
 #puts term_to_docs.to_a.collect {|ts| [ts[0],ts[1].size] }.sort {|a,b| a[1]<=>b[1]}.inspect
 #puts term_to_docs.size
 
+=begin
+###SOMETHING IS BUGGY IN THIS BIT :(
 terms_to_remove = []
 remove_freq_lowerbound = doc_id * TERM_FREQ_CUTOFF
 remove_freq_upperbound = doc_id * (1.0 - TERM_FREQ_CUTOFF)
@@ -96,6 +99,7 @@ terms_to_remove.each do |term|
   term_to_docs.delete term
   num_non_zero_entries -= 1
 end
+=end
 
 #puts "$$$$$$$$$$$$$$$$ AFTER purge"
 #puts term_to_docs.to_a.collect {|ts| [ts[0],ts[1].size] }.sort {|a,b| a[1]<=>b[1]}.inspect

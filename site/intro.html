@@ -16,13 +16,9 @@ to see how well <a href="http://en.wikipedia.org/wiki/Latent_semantic_analysis">
 <h2>wha?</h2>
 
 <p>
-usually when comparing documents we do so using the terms contained in the documents.</br>
+usually when comparing documents we do so using the fundamental unit of the text; the actual terms themselves.</br>
 lsa gives a way of comparing documents at a higher level than the terms by introducting a concept called the <em>feature</em>.</br>
-</p>
-
-<p>
-rather than comparing documents on their terms we can compare based on how strongly they are assoicated with these features.</br>
-the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition (svd)</a> is a way of extracting features from documents based on the terms they contain.
+the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition (svd)</a> is a way of extracting features from documents.
 </p>
 
 <h2>an example</h2>
@@ -32,7 +28,7 @@ lets go through a high level example to help build the initution.
 </p>
 
 <p>
-a common way to describe a corpus is using a term-occurance matrix where rows represent terms and columns represent documents.</br>
+first let's introduce the <em>term occurance matrix</em>, a common way to describe a corpus, where rows represent terms and columns represent documents.</br>
 element a<sub>i,j</sub>=n denotes that the i<sup>th</sup> term occured n times in the j<sup>th</sup> document.
 </p>
 
@@ -68,12 +64,11 @@ straight away we can see that, based on what words the documents contain, that d
 the terms <em>linux</em> and <em>modem</em> are used a lot in the first two docments and one can imagine that they are representive of a concept; we could call it <em>computers</em></br>
 the terms <em>clutch</em>,  <em>steering</em> and <em>petrol</em> are used a lot in the last three documents, perhaps they are representive of a concept; we could call it <em>automotive</em></br>
 the term <em>the</em> is an interesting one; it used across all the documents and we can see that this is not really related to either topic but is more an english construct</br>
-traditionally when dealing with these matrices for information retreival we might apply some pre
-processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normalisation</a>, but to start with we'll doing nothing more
 </p>
 
 <p>
-lsa will help up extract these features, <em>computers</em> and <em>automotive</em>, but alas won't give us nice names for them :)
+lsa will help up extract these features, <em>computers</em> and <em>automotive</em>, in some form.</br>
+but alas won't give us nice human readable names for them :)
 </p>
 
 <p>
