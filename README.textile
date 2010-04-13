@@ -1,5 +1,12 @@
 WRITEUP COMING SOON TO MATPALM.COM
 
+todos:
+ finish this readme and readme under real
+ convert from R graphs to ggobi screenshots for scatterplot matrices on eg1, eg2 and eg3
+ add google analytics links
+ add github link to last page
+ add youtube link to real normalised page
+
 in the meantime, here are some random notes....
 
 random experiment with "latent semantic analysis":http://en.wikipedia.org/wiki/Latent_semantic_analysis

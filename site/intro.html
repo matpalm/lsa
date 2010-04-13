@@ -6,6 +6,11 @@
   </head>
 <body>
 
+<p>
+<a href="index.html">index</a>&nbsp;&nbsp;&nbsp;
+<a href="eg1.html">example 1&nbsp;&nbsp;&gt;&gt;</a>
+</p>
+
 <h1>latent semantic analysis via the singular value decomposition</h1>
 
 <p>
@@ -24,12 +29,12 @@ the <a href="http://en.wikipedia.org/wiki/Singular_value_decomposition">singular
 <h2>an example</h2>
 
 <p>
-lets go through a high level example to help build the initution.
+lets go through a high level example to help build the initution and see what these features 'look like'
 </p>
 
 <p>
 first let's introduce the <em>term occurance matrix</em>, a common way to describe a corpus, where rows represent terms and columns represent documents.</br>
-element a<sub>i,j</sub>=n denotes that the i<sup>th</sup> term occured n times in the j<sup>th</sup> document.
+the value of matrix element a<sub>i,j</sub> denotes that the i<sup>th</sup> term occured n times in the j<sup>th</sup> document.
 </p>
 
 <p>
@@ -41,7 +46,7 @@ d3: petrol! clutch the steering, steering, linux. the steering clutch petrol. cl
 d4: the the the. clutch clutch clutch! steering petrol; steering petrol petrol; steering petrol!!!!
 </pre>
 
-which is represented as the 6x4 document term matrix (colour introduced just to help see patterns)
+which is represented as the 6x4 document term matrix below (colour introduced just to help see patterns)
 </p>
 
 <p>
@@ -61,14 +66,14 @@ straight away we can see that, based on what words the documents contain, that d
 </p>
 
 <p>
-the terms <em>linux</em> and <em>modem</em> are used a lot in the first two docments and one can imagine that they are representive of a concept; we could call it <em>computers</em></br>
+the terms <em>linux</em> and <em>modem</em> are used a lot in the first two docments. one can imagine that they are representive of a concept; we could call it <em>computers</em></br>
 the terms <em>clutch</em>,  <em>steering</em> and <em>petrol</em> are used a lot in the last three documents, perhaps they are representive of a concept; we could call it <em>automotive</em></br>
-the term <em>the</em> is an interesting one; it used across all the documents and we can see that this is not really related to either topic but is more an english construct</br>
+the term <em>the</em> is an interesting one; it used across all the documents and we can see that this is not really related to either topic, it's more an english construct</br>
 </p>
 
 <p>
-lsa will help up extract these features, <em>computers</em> and <em>automotive</em>, in some form.</br>
-but alas won't give us nice human readable names for them :)
+lsa will help up extract these features, <em>computers</em> and <em>automotive</em></br>
+it won't though, alas, give us nice human readable names for them :)
 </p>
 
 <p>

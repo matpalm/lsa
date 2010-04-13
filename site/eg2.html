@@ -6,6 +6,12 @@
   </head>
 <body>
 
+<p>
+<a href="eg1.html">&lt;&lt;&nbsp;&nbsp;example 1</a>&nbsp;&nbsp;&nbsp;
+<a href="index.html">index</a>&nbsp;&nbsp;&nbsp;
+<a href="eg3.html">example 3&nbsp;&nbsp;&gt;&gt;</a>
+</p>
+
 <div class="one_column" >
 
 <h1>example 2: two less clear features</h1>
@@ -15,7 +21,7 @@ here's a slightly more complex example to work with
 </p>
 
 <p>
-consider the, again, extremely contrived, documents
+consider the documents
 <pre>
 d1: c a a b c b c
 d2: a b c a b c c
@@ -42,7 +48,7 @@ which are represented as the 6x4 document term matrix.
 
 <p>
 once more we can see a partitioning of the documents; d1 with d2 and d3 with d4</br>
-but this time though it's not as clear cut since <em>c</em> is present in d1 and d2 as much as it is in d3 and d4.</br>
+like our original example it's not as clear cut since <em>c</em> is present in d1 and d2 as much as it is in d3 and d4.</br>
 </p>
 
 <h2>singular value decomposition</h2>
@@ -136,14 +142,14 @@ so again the variance of this data is primarily described by 2 features
 <h3>interpretation of VS</h3>
 
 <p>
-the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
-but it's not as straight forward as our <a href="eg1.html#vs">the last example</a>.
+recall the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)
 </p>
 
 <p>
+it's not as straight forward as our <a href="eg1.html#vs">the last example</a></br>
 this time the dominant feature f1 describes not a type of document but the use of the common term <em>c</em></br>
 it's f2 that gives a clear seperation of d1 and d2 from d3 and d4</br>
-the set of scatterplots below seems to suggest in this case that f2 alone is the best distinguisher of the two types of documents.
+the scatterplot matrix below seems to suggest in this case that f2 alone is the best distinguisher of the two types of documents.
 </div>
 
 <div class="one_column">
@@ -173,7 +179,10 @@ the set of scatterplots below seems to suggest in this case that f2 alone is the
 <a name="us"></a><h3>interpretation of US</h3>
 
 <p>
-the matrix product US describes the relation between terms (US's rows) and the features (US's columns)</br>
+recall the matrix product US describes the relation between terms (US's rows) and the features (US's columns)
+</p>
+
+<p>
 as above we see that the strongest feature f1 is primarily related to the term <em>c</em></br>
 f2 gives a reasonable seperation for the 3 types of terms in the corpus;
 <ol>
@@ -209,12 +218,10 @@ f2 gives a reasonable seperation for the 3 types of terms in the corpus;
 <div class="one_column">
 
 <p>
-where as the <a href="eg1.html">first</a> example had a clear cut 1 feature = 1 type of document situation, it's a bit more complex
+where as the <a href="eg1.html">first</a> example was a simple case of 1 feature = 1 type of document, it's more complex
 this time</br>
-the first feature instead describes the use of a very common term.</br>
-apparently it's quite common that the highest features dictate common language semantics, and you have to use other later
-features to categorisee documents.</br>
-we'll see more examples of this when we move onto using some real data
+the first feature instead describes the use of a very common term which apparently is quite common.</br>
+the highest features often relate to language semantics, with later features describing corpus structure</br>
 </p>
 
 <p>

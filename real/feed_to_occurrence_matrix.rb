@@ -54,7 +54,7 @@ doc_id = 0
 id_to_url = File.new("#{DIR_PREFIX}/id_to_url",'w')
 STDIN.each do |line|
   url, date, text = line.chomp.split '|'
-  next unless text.split.size > MIN_TERMS_PER_DOC
+  #next unless text.split.size > MIN_TERMS_PER_DOC
 
   id_to_url.puts "#{doc_id} #{url.strip}"
   

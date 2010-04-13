@@ -1,0 +1,85 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<p>
+<a href="real.html">&lt;&lt;&nbsp;&nbsp;real data example</a>&nbsp;&nbsp;&nbsp;
+<a href="index.html">index</a>&nbsp;&nbsp;&nbsp;
+<a href="conclusions.html">conclusions&nbsp;&nbsp;&gt;&gt;</a>
+</p>
+
+<h1>real data example (normalised doc lengths)</h1>
+
+<p>
+this time let's so the same but include a <em>really</em> simple normalisation; divide each term's weight based on the document length.
+</p>
+
+<p>
+when we do this we get an immediate improvement on the spread for the first feature.</br>
+like last time it consists of english construct words but this time isn't dominated by autoblog articles
+</p>
+
+<p>
+<table>
+<tr> 
+ <td colspan="6">feature 1 article strengths</td>
+</tr>
+<tr> 
+ <td colspan="6">(articles near top most strongly associated)</td>
+</tr>
+<tr>
+ <td colspan="3">without normalisation</td>
+ <td colspan="3">with normalisation</td>
+</tr>
+<tr>
+ <td colspan="3"><img src="f1_histo.png"/></td>
+ <td colspan="3"><img src="f1_histo.normalised.png"/></td>
+</tr>
+<tr>
+ <td colspan="2"><font style="color:green">autoblog</font></td>
+ <td colspan="2"><font style="color:red">the register</font></td>
+ <td colspan="2"><font style="color:blue">perez hilton</font></td>
+</tr>
+</table>
+</p>
+
+<p>
+and like last time the following few features (f2 to f6) are related to single documents which have some fundamental difference in them to the entire corpus
+</p>
+
+<p>
+features 7 through 10 show an interesting seperation of the documents</br>
+consider especially f8 vs f9
+</p>
+
+<p>
+<table>
+<tr> 
+ <td colspan="6">feature 7 to feature 9 scatterplot matrix</td>
+</tr>
+<tr>
+ <td colspan="6"><img src="f7_f9.normalised.png"/></td>
+</tr>
+<tr>
+ <td colspan="2"><font style="color:green">autoblog</font></td>
+ <td colspan="2"><font style="color:red">the register</font></td>
+ <td colspan="2"><font style="color:blue">perez hilton</font></td>
+</tr>
+</table>
+</p>
+
+<p>
+here's a 2d tour of the feature space for features 7 through 10, seems to be quite a bit of seperation.
+YOU TUBE LINK
+</p>
+
+<p>
+so finally, <a href="conclusions.html">some conclusions</a>
+</p>
+
+</body>
+</html>

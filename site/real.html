@@ -1,0 +1,341 @@
+<html>
+  <head>
+   <title>lsa via svd</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <link rel=StyleSheet href="style.css" type="text/css">
+  </head>
+<body>
+
+<p>
+<a href="eg3.html">&lt;&lt;&nbsp;&nbsp;example 3</a>&nbsp;&nbsp;&nbsp;
+<a href="index.html">index</a>&nbsp;&nbsp;&nbsp;
+<a href="real_normalised.html">real data example (with normalisation)&nbsp;&nbsp;&gt;&gt;</a>
+</p>
+
+<h1>real data example</h1>
+
+<h2>the corpus</h2>
+
+<p>
+let's try the decomposition on some real data and see what patterns we find
+</p>
+
+<p>
+we'll use a simple dataset of 100 articles taken from each of 3 quite different rss feeds; </br>
+<ul>
+<li><a href="http://www.autoblog.com/">autoblog</a> (a automotive discussion blog)</li>
+<li><a href="http://perezhilton.com/">perez hilton</a> (a hollywood gossip blog)</li>
+<li><a href="http://theregister.co.uk">the register</a> (a tech review blog)</li>
+</ul>
+we should be able to find enough variance in features to be able to classify a new article as coming from one of these three.
+</p>
+
+<h2>feature strengths</h2>
+
+<p>
+first let's look at the feature strength for the first 50 features</br>
+<img src="top_50_features.png"></br>
+it seems pretty clear that the first feature is the major one</br>
+</p>
+
+<h2>the first feature</h2>
+
+<h3>terms related to the first feature</h3>
+
+<p>
+of the 5700 terms present in the corpus which terms are strongest for the first feature?</br>
+<table>
+<tr><td>rank</td> 
+<td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td>
+<td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td>
+</tr>
+<tr><td>term</td> 
+<td>the</td> <td>of</td> <td>to</td> <td>and</td> <td>in</td> 
+<td>for</td> <td>that</td> <td>is</td> <td>with</td> <td>it</td> 
+</tr>
+<tr><td>strength</td> 
+<td>138</td> <td>46</td> <td>45</td> <td>43</td> <td>32</td> 
+<td>25</td> <td>25</td> <td>22</td> <td>16</td> <td>16</td> 
+</tr>
+</table>
+</p>
+
+<p>
+at the tail end there are the hapax legomenon with near zero scores including terms like...</br>
+un, sydney, soa, jailed, worker, diplomat
+</p>
+
+<p>
+to me this indicates a feature pretty strongly associated with common
+english constructs</br>
+(apparently this is quite common in LSA)</br>
+if nothing else then SVD is an extremely expensive way to 
+do language determination :)
+</p>
+
+<h3>documents related to the first feature</h3>
+
+<p>
+given we've seen that the features describe english terms we should expect it to be pretty</br>
+arbitrary which documents are most strongly associated with this feature. let's see.
+</p>
+
+<p>
+<table>
+<tr> 
+ <td colspan="6">feature 1 article strengths</td>
+</tr>
+<tr> 
+ <td colspan="6">(articles near top most strongly associated)</td>
+</tr>
+<tr>
+ <td colspan="6"><img src="f1_histo.png"/></td>
+</tr>
+<tr>
+ <td colspan="2"><font style="color:green">autoblog</font></td>
+ <td colspan="2"><font style="color:red">the register</font></td>
+ <td colspan="2"><font style="color:blue">perez hilton</font></td>
+</tr>
+</table>
+</p>
+
+<p>
+we can see the the first feature is most strongly, and exclusively, associated with the articles from autoblog</br>
+articles for the register and perez hilton> are less associated (the bottom bars of the histogram)
+</p>
+
+<p>
+if this feature corresponds to english constructs why is it so strongly associated only with autoblog?</br>
+seems that the autoblog articles on average are much longer than the other two feeds.</br>
+<table>
+<tr><td>feed</td><td>total terms in corpus</td></tr>
+<tr><td>autoblog</td><td>19347</td></tr>
+<tr><td>perez</td><td>4392</td></tr>
+<tr><td>the register</td><td>2658</td></tr>
+</table>
+</p>
+
+<p>
+does this imply we'll have to normalise the data in some way first? we'll come back this ...
+</p>
+
+<h2>the second feature</h2>
+
+<h3>terms related to the second feature</h3>
+
+<p>
+the terms most strongly associated on the +ve side with the second feature</br>
+are quite similiar to the common language terms of the first feature
+<table>
+<tr><td>rank</td> 
+<td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td>
+<td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td>
+</tr>
+<tr><td>feature2</td> 
+<td>and</td> <td>of</td> <td>in</td> <td>that</td> <td>for</td> 
+<td>is</td> <td>the</td> <td>on</td> <td>gallery</td> <td>you</td> 
+</tr>
+<tr><td>strength</td> 
+<td>0.45</td> <td>0.43</td> <td>0.27</td> <td>0.20</td> <td>0.17</td> 
+<td>0.16</td> <td>0.13</td> <td>0.12</td> <td>0.12</td> <td>0.11</td> </tr>
+</table>
+</p>
+
+<p>
+but the terms most strongly associated on the -ve side <em>do</em> show something...
+<table>
+<tr><td>rank</td> 
+<td>5718</td> <td>5719</td> <td>5720</td> <td>5721</td> <td>5722</td>
+<td>5723</td> <td>5724</td> <td>5725</td> <td>5726</td> <td>5727</td>
+</tr>
+<tr><td>feature2</td> 
+<td>opportunity</td> <td>not</td> <td>had</td> <td>weekend</td> <td>show</td> 
+<td>very</td> <td>new</td> <td>this</td> <td>we</td> <td>cher</td> 
+</tr>
+<tr><td>strength</td> 
+<td>-0.99</td> <td>-1.00</td> <td>-1.00</td> <td>-1.00</td> <td>-1.00</td> 
+<td>-1.01</td> <td>-1.02</td> <td>-1.02</td> <td>-1.05</td> <td>-45.98</td> </tr>
+</table>
+</p>
+
+<p>
+cher? with an overwhelming strength of -45?!?!
+</p>
+
+<h3>documents related to the second (aka cher) feature</h3>
+
+<p>
+in the same way there is a single term dominanting the second feature</br>
+there is a single document, from perezhilton, that dominates the second feature
+<pre>
+Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! 
+Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! 
+Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! 
+Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! Cher! 
+Cher! This weekend we had the very special opportunity to not only
+see Cher's new show ...
+</pre>
+</p>
+
+<p>
+so in fact this second feature is not related to a <em>type</em> of article but just this particular article</br>
+this makes me think even more that we need some normalisation, but let's continue for a few more features
+</p>
+
+<h2>features three and four</h2>
+
+<p>
+features 3 and 4 are similiar to feature 2 in that they're associated again to a single article, this time one from autoblog.
+</p>
+
+<h3>terms related to the third and fourth feature</h3>
+
+<p>
+<table>
+<tr><td>rank</td> 
+<td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td>
+<td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td></tr>
+<tr><td colspan="11"></td></tr>
+<tr><td>feature3</td> 
+<td>to</td> <td>and</td> <td>in</td> <td>sales</td> <td>20</td> 
+<td>comparechart</td> <td>34</td> <td>chrysler</td> <td>14</td> <td>24</td> 
+</tr>
+<tr><td>strength</td> 
+<td>14.3</td> <td>14.1</td> <td>6.75</td> <td>6.0</td> <td>4.8</td> 
+<td>4.7</td> <td>4.0</td> <td>3.5</td> <td>3.4</td> <td>3.3</td> </tr>
+<tr><td colspan="11"></td></tr>
+<tr><td>feature4</td> 
+<td>the</td> <td>sales</td> <td>20</td> <td>comparechart</td> <td>34</td> 
+<td>25</td> <td>14</td> <td>24</td> <td>in</td> <td>audi</td> </tr>
+<tr><td>strength</td> 
+<td>8.5</td> <td>5.8</td> <td>4.5</td> <td>4.5</td> <td>3.9</td> 
+<td>3.8</td> <td>3.3</td> <td>3.2</td> <td>3.0</td> <td>3.0</td> </tr>
+</table>
+</p>
+
+<h3>document related to the third and fourth feature</h3>
+
+<p>
+the autoblog article relating to these two features is by far the longest (in terms of raw chars) since</br>
+it includes a nested table that wasn't parsed out very well by my original slurping script</br>
+</p>
+
+<p>
+<table>
+<tr> 
+ <td colspan="6">feature 3 vs feature 4 scatterplot</td>
+</tr>
+<tr>
+ <td colspan="6"><img src="f3_f4.png"/></td>
+</tr>
+<tr>
+ <td colspan="2"><font style="color:green">autoblog</font></td>
+ <td colspan="2"><font style="color:red">the register</font></td>
+ <td colspan="2"><font style="color:blue">perez hilton</font></td>
+</tr>
+</table>
+</p>
+
+
+<p>
+<pre>
+Filed under: By the Numbers Check it out. We've completely revamped By the 
+Numbers to convey more sales information than before in a much easier to digest 
+way. Now we'll be reporting both the change in monthly sales volume for each 
+brand and automaker as well as the change in their Daily Sales Rate or average 
+number of vehicles sold per day. On to the armchair analysis... Poor sales 
+continued through the month of August as only a handful of brands are able to 
+brag about increased sales. Nissan North America bucked the trend entirely 
+reporting a 13.6% gain for the combined brands of Nissan and Infiniti with each 
+marque reporting its own individual increases. Credit goes to VW (2.9%), as 
+well, which posted a solid number, and the BMW Group (1.0%), which barely 
+earned a positive increase in sales thanks to a strong 34.1% increase in MINI 
+sales. While GM (-20.4%), FoMoCo (-25.6%) and Chrysler LLC (-34.5%) sales were 
+all down in a big way, Toyota MoCo and Honda America were also not immune 
+falling 9.4% and 7.3%, respectively. In this environment, brands should 
+consider a single-digit drop a small victory considering the majority of brands 
+that fell by 10% or more. #comparechart { border: 2px solid #333; 
+border-collapse: collapse; } #comparechart td { padding: 3px; border: 1px solid 
+#ccc; vertical-align: top; margin: 0; line-height: 1.3em; font-size: 80%} 
+#comparechart th { font-size: 80%; font-weight: bold; text-align: left; 
+padding: 4px; background: #eee; } #comparechart th.mainth { font-size: 75%; 
+border-bottom: 1px solid #333; } #comparechart td.red { background-color: 
+#f08c85; } #comparechart td.green { background-color: #b3e2c4; } #comparechart 
+td.yellow { background-color: #ffffcc;} BY THE NUMBERS - August 2008 Brand Vol. 
+Total Vol. 8/08 Total Vol. 8/07 DSR Daily avg 8/08 Daily avg 8/07 Acura -8.2% 
+15,089 16,436 -8.2% 559 609 Audi -15.9% 6,406 7,620 -15.9% 237 282 BMW -4.1% 
+25,462 26,562 -4.1% 943 984 Buick -7.7% 17,833 19,324 -7.7% 660 716 Cadillac 
+-20.9% 15,405 19,481 -20.9% 571 722 Chevrolet -19.2% 185,080 229,012 -19.2% 
+6,855 8,482 Chrysler -44.2% 24,337 43,650 -44.2% 901 1,617 Dodge -24.6% 62,422 
+82,841 -24.6% 2,312 3,068 Ford -26.2% 133,088 180,282 -26.1% 4,929 6,677 GMC 
+-17.6% 42,194 51,222 -17.6% 1,563 1,897 Honda -7.2% 131,766 141,906 -7.2% 4,880 
+5,256 HUMMER -62% 2,160 5,677 -62% 80 210 Hyundai -8.8% 41,130 45,087 -8.8% 
+1,523 1,670 Infiniti 8.0% 11,076 10,252 8.0% 410 378 Jeep -43.7% 23,476 41,712 
+-43.7% 869 1,545 Kia -6.7% 25,065 26,874 -6.7% 928 995 Lexus -9.1% 29,281 
+32,199 -9.1% 1,084 1,193 Lincoln -8.5% 9,540 10,423 -8.5% 353 386 Mazda -4.4% 
+23,680 24,762 -4.4% 877 917 Mercedes-Benz -11.8% 18,507 20,980 -11.8% 685 777 
+Mercury -31.7% 8,393 12,296 -31.7% 311 455 MINI 34.1% 5,469 4,077 34.1% 203 151 
+Mitsubishi -29.3% 9,200 13,020 -29.3% 341 482 Nissan 14.2% 97,417 85,275 14.2% 
+3,608 3,158 Pontiac -38.3% 24,257 39,324 -38.3% 898 1,456 Porsche -44.9% 1,404 
+2,548 -44.9% 52 94 Saab -50.1% 1,503 3,011 -50.1% 56 112 Saturn -3.5% 20,385 
+21,117 -3.5% 755 782 Subaru 14.2% 18,932 16,573 14.2% 701 614 Suzuki -31.7% 
+6,083 8,916 -31.7% 225 330 Toyota -9.4% 182,252 201,272 -9.4% 6,750 7,455 
+Volkswagen 2.9% 22,292 21,655 2.9% 826 802 Volvo -48.8% 4,669 9,119 -48.8% 173 
+338 COMPANIES BMW Group 1% 30,931 30,639 1% 1,146 1,135 Chrysler LLC -34.5% 
+110,235 168,203 -34.5% 4,083 6,230 FoMoCo -25.6% 151,021 203,001 -25.6% 5,593 
+7,519 General Motors -20.4% 308,817 388,168 -20.4% 11,438 14,377 Honda America 
+-7.3% 146,855 158,342 -7.3% 5,439 5,864 Nissan NA 13.6% 108,493 95,527 13.6% 
+4,018 3,538 Toyota Mo Co -9.4% 211,533 233,471 -9.4% 7,835 8,647 August 2008 
+had 27 selling days versus 27 selling days for August 2007 UPDATE: Audi added 
+and Subaru's sales figures corrected. ? Permalink | Email this | Comments 
+</pre>
+ouch. even more ammo for some pre normalisation step
+</p>
+
+<h2>features from five onwards</h2>
+
+<h3>terms related to these features</h3>
+
+<p>
+nothing really sticks out for these features...
+</p>
+
+<h3>documents related to these features</h3>
+
+<p>
+the 10 most +ve and -ve documents for features 5 onwards are from autoblog with those articles dominating the edges of the feature space</br>
+articles for the register and perez hilton cluster around 0.</br>
+i suspect this is again an artifact of the longer autoblog articles.
+</p>
+
+<p>
+we can see that in the following scatterplot matrix that autoblog entries encircle the others.</br>
+i'm a sure a pretty vanilla svm would pick this up boundary</br>
+if it's just document length that is the reason for this spread a much simpler classifier would be to just check the article length.</br>
+</p>
+
+<p>
+<table>
+<tr> 
+ <td colspan="6">feature 5 to feature 4 scatterplot matrix</td>
+</tr>
+<tr>
+ <td colspan="6"><img src="dim5_8_sp_matrix.png"/></td>
+</tr>
+<tr>
+ <td colspan="2"><font style="color:green">autoblog</font></td>
+ <td colspan="2"><font style="color:red">the register</font></td>
+ <td colspan="2"><font style="color:blue">perez hilton</font></td>
+</tr>
+</table>
+</p>
+
+<p>
+so it really looks like we need to normalise the input in some way.</br>
+let's try the most vanilla we can, just <a href="real_normalised.html">normalising on the doc length</a></br>
+</p>
+
+</body>
+</html>
+
+

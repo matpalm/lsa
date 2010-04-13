@@ -6,6 +6,12 @@
   </head>
 <body>
 
+<p>
+<a href="intro.html">&lt;&lt;&nbsp;&nbsp;intro</a>&nbsp;&nbsp;&nbsp;
+<a href="index.html">index</a>&nbsp;&nbsp;&nbsp;
+<a href="eg2.html">example 2&nbsp;&nbsp;&gt;&gt;</a>
+</p>
+
 <div class="one_column" >
 
 <h1>example 1: two clear features</h1>
@@ -15,7 +21,7 @@ here's another trivial example to make sure we know exactly what's going on
 </p>
 
 <p>
-consider the set of, again, extremely contrived, documents
+consider the set of, again, extremely contrived documents
 <pre>
 d1: c a a b c b c
 d2: a b c a b c c
@@ -41,11 +47,6 @@ which is represented as the 6x4 document term matrix.
 </p>
 
 <p>
-<small>note: traditionally when dealing with these matrices for information retreival we might apply some pre
-processing, such as <a href="http://en.wikipedia.org/wiki/TF_IDF">tf-idf normalisation</a>, but for our examples we won't bother.</small>
-</p>
-
-<p>
 once more we can see two clear clusterings of the documents; d1 with d2 and d3 with d4
 </p>
 
@@ -58,6 +59,9 @@ into a series of products of matrices)
 
 <p>
 in particular the SVD decomposes a matrix A into the produce of three specially formed matrices (mysteriously named) U, S and V</br>
+</p>
+
+<p>
 each of these three matrices represents a different interpretation of the original data.
 </p>
 
@@ -143,8 +147,11 @@ Vt describes the relationshop between features (rows) and documents (columns)</b
 
 <p>
 the matrix S is always a diagonal matrix with non-negative decending values, formally known as the singular values</br>
-non zero values represent a feature and in this example we have two. (there can't be more features than there are documents)</br>
-the magnitude of the values describes how much "variance" each feature describes in the data</br>
+</p>
+
+<p>
+each non zero value represents a feature and in this example we have two. (there can't be more features than there are documents)</br>
+the magnitude of the values describes how much variance each feature describes in the data</br>
 for this example we can see that each feature is roughly the same strength; there are roughly the same number of documents for each feature</br>
 </p>
 
@@ -152,6 +159,9 @@ for this example we can see that each feature is roughly the same strength; ther
 
 <p>
 the matrix product VS describes the relation between documents (VS's rows) and the features (VS's columns)</br>
+</p>
+
+<p>
 plotting f1 vs f2 we can see the expected seperation of doc1 and doc2 from doc3 and doc4
 </p>
 
@@ -183,8 +193,13 @@ plotting f1 vs f2 we can see the expected seperation of doc1 and doc2 from doc3 
 
 <p>
 the matrix product US describes the relation between terms (US's rows) and the features (US's columns)</br>
+</p>
+
+<p>
 again we see what we expected; terms <em>a</em>, <em>b</em> &amp; <em>c</em> (only present in the first two documents) are aligned with feature 1</br>
-whereas terms <em>d</em>, <em>e</em> &amp; <em></em> (only present in the second two documents) are aligned with feature 2
+whereas terms <em>d</em>, <em>e</em> &amp; <em></em> (only present in the second two documents) are aligned with feature 2</br>
+we can also see that <em>c</em> has a stronger association with feature 1 than <em>a</em> or <em>b</em> does denoting that <em>c</em> occured more frequently</br>
+likewise <em>e</em> has a weaker association with feature 2 than <em>d</em> or <em>e</em> does denoting that <em>e</em> occured less frequently
 </p>
 
 <div>
