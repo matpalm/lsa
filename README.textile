@@ -1,75 +1,24 @@
-WRITEUP COMING SOON TO MATPALM.COM
+see project page at http://matpalm.com/lsa_via_svd
+
+the rest of this page are my notes, continue reading at your own peril...
+
+requirements
+- SVDLIBC; svd library available from http://tedlab.mit.edu/~dr/SVDLIBC/
+- transpose; diy transpose code written in c, code blocks project under transpose_prj (note could write a ruby one if required)
+(see make_symlinks.sh for where these are expected to be made (ignore the tf_idf_prj one))
+- R for generating some images
+
+to generate graphs for the first few site pages; 
+(this have been superceeded by the ggobi screenshots)
+bash> source rc
+bash> generate_images_for_website.sh
+
+to reproduce real examples
+bash> source rc
+bash> cd real
+bash> ./run.sh
 
 todos:
  finish this readme and readme under real
- convert from R graphs to ggobi screenshots for scatterplot matrices on eg1, eg2 and eg3
  add google analytics links
- add github link to last page
- add youtube link to real normalised page
 
-in the meantime, here are some random notes....
-
-random experiment with "latent semantic analysis":http://en.wikipedia.org/wiki/Latent_semantic_analysis
-
-of particular interest to me is the "singular value decomposition":http://en.wikipedia.org/wiki/Singular_value_decomposition algorithm it uses
-
-starting by getting "atlas":http://math-atlas.sourceforge.net/ impl of "lapack":http://www.netlib.org/lapack/ (using "boost ublas":http://www.boost.org/doc/libs/1_39_0/libs/numeric/ublas/doc/index.htm) up and running before finding out atlas doesn't implement the sgesvd (svd) lapack functions (?!?!)
-
-so instead comparing the implementation provided by "gnu gpl":http://www.gnu.org/software/gsl/ to Doug Rohde's "svdlibc":http://tedlab.mit.edu/~dr/svdlibc/ (based on "netlibs svcpackc":http://www.netlib.org/svdpack/)
-
-so far doug's version is MUCH faster....
-
-| num entries | svdlibc | gpl |
-| 100 | 0.3s | 1.2s |
-| 200 |	1.2s | 6s |
-| 300 | 1.5s | 15s |
-| 400 | 2.6s | 34s |
-| 500	|	5s | 1m 16s |
-
-an implementation that _really_ caters for sparse matrices makes a HUGE difference!!!
-
-todo:
-
-check factorization by multiplying an example out, need to refer to text for examples which included
-which extra rows are zeroed
-
-after svd need to take first sigma and recontruct rank-1/2/3 approximation. use this for doc cluster, not
-1st/2nd/3rd rows of vT. these can be plotted in ggobi
-
-take query
-fold into sub space
-pick orders
-
-need some manual examples
-- get web content
-
-lsi eg from p381
-
-visualising by angles
-
-so document similiarities is done by angles, not distances in vec space
-for 2d case can order them by angle from (1,0)
-but in 3+d case what to do? don't have distance, only angles?
-find smallest angle, combine, replace with representative vector?
-or according to manning could try the different cluster rules, closest, furthest, average etc
-
-visualising by points 
-
-cat ../$1 | ../feed_to_occurrence_matrix.rb tom
-../svd -r st -w dt -c tom.sparse tom.dense #convert from sparse to dense
-../tf_idf.rb < tom.dense > tom.dense.tf_idf
-../svd -d 2 -v 0 -o svd.tf_idf -r dt tom.dense.tf_idf
-../svd -d 2 -v 0 -o svd.raw tom.sparse
-
-gives two version of the decomposition, one from the raw data, and one from the tf_idf reduced data
-to compare documents we consider Vt, the documents remapped into concept space.
-
-cat svd.tf_idf-Vt | ../transpose_dense.rb | ../normalise.rb > svd.tf_idf-V
-cat svd.raw-Vt | ../transpose_dense.rb | ../normalise.rb > svd.raw-V
-
-gnuplot> plot 'svd.raw-V' with points 
-gnuplot> plot 'svd.tf_idf-V' with points 
-
-matrix transpose using ruby standard ruby library, 115s
-using simple diy ruby code, 29s
-using c version, 2s

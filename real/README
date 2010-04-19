@@ -1,9 +1,0 @@
-see run.sh
-
-todo:
- effect of running with/without tf idf
- problem with removing top 0.10, commented out for now
- why are SVD-US (term) columns doubled up? first 2 the same, then second 2 the same
- clustering for top N features for plotting in weka
- multidimensional sclaing of top N features for plotting in 2/3d
- 
